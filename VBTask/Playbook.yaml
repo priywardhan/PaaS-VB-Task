@@ -1,0 +1,42 @@
+name: nginx install & start services
+hosts: all
+become: true
+
+name: Play 1
+hosts: localhost
+tasks:
+   - name: command 1
+     command: docker-compose build
+
+name: Play 2
+hosts: localhost
+tasks:
+  - name: command 2
+    command: docker-compose up -d
+
+name: Play 3
+hosts: localhost
+tasks:
+  - name: command 3
+    command: cd ./VBTask/mysql
+
+name: Play 4
+hosts: localhost
+tasks:
+  - name: command 4
+    command: docker-compose build
+
+name: Play 5
+hosts: localhost
+tasks:
+  - name: command 5
+    command: docker-compose up -d
+
+name: Play 6
+hosts: localhost
+tasks:
+  - name: command 6
+    command: docker-compose up -d
+
+
+

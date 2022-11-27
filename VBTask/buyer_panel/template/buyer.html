@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <style>
+            table, tr, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 2px;
+        }
+        h2{
+            font-size: large;
+            color: gray;
+        }
+        button{
+            margin-bottom: 20px;
+        }
+        .button-42 {
+            background-color: initial;
+            background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
+            border-radius: 6px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+            height: 40px;
+            line-height: 40px;
+            outline: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            pointer-events: auto;
+            position: relative;
+            text-align: center;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: top;
+            white-space: nowrap;
+            z-index: 9;
+            border: 0;
+            transition: box-shadow .2s;
+            }
+        .button-3 {
+            appearance: none;
+            background-color: #2ea44f;
+            border: 1px solid rgba(27, 31, 35, .15);
+            border-radius: 6px;
+            box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            padding: 6px 16px;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            margin-left: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Buyer Panel</h1>
+        <h2>Feel free to browse the products :)</h2>
+        <form action="index.php" method="post">
+            <input type="text" name="Firstname" id="firstname">
+            <input type="text" name="Lastname" id="lastname">
+            <button class="button-42" onclick="show()">What is for sale?</button>
+        <div id="hide" style="display: none;">
+            <input id="buyItem" style="width: 200px; height: 30px;" placeholder="What would you like to buy?"/><button onclick="buy()" class="button-3">Buy!</button>
+            <table id="table">
+        </form>
+        </div>
+            <th>
+                Brand
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Rating
+            </th>
+            <th>
+                Item
+            </th>
+        </table>
+    </body>
+</html>
+
+<script>
+    function show(){
+        document.getElementById("hide").style.display='block'
+        let productsStr= '{{prodList | tojson}}'
+        var parsedProducts = JSON.parse(productsStr);
+        const table = document.getElementById('table');
+        for(const obj of parsedProducts){
+            const row = document.createElement('tr');
+            for(const val of Object.values(obj)){
+                const col = document.createElement('td');
+                const col1 = document.createElement('td');
+                col.textContent = val
+                row.appendChild(col);
+            }
+            table.appendChild(row);
+        }
+    }
+    function buy(){
+        let objMain
+        let productsStr= '{{prodList | tojson}}'
+        var parsedProducts = JSON.parse(productsStr);
+        let input = document.getElementById("buyItem").value
+        var result = parsedProducts.find(obj => {
+            return obj.Title===input
+        })
+        alert("You have purchased "+result.Title+" for $"+result.Price)
+    }
+</script>

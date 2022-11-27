@@ -1,0 +1,1 @@
+A Dockerfile contains the commands a user could call to assemble an image whereas Docker Compose is a tool for defining and running multi-container Docker applications.

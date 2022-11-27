@@ -1,0 +1,50 @@
+version: "3.7"
+
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: dockerfile-caddy
+    container_name: caddy
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "80:80"
+    networks:
+      - buyer_net
+      - seller_net
+
+  buyerhost:
+    build:
+      context: buyer_panel
+      dockerfile: Dockerfile
+    container_name: buyer
+    networks:
+      - buyer_net
+
+  sellerhost:
+    build:
+      context: seller_panel
+      dockerfile: Dockerfile
+    container_name: seller
+    networks:
+      - seller_net
+    
+  statushost:
+    build:
+      context: status
+      dockerfile: Dockerfile
+    container_name: status
+    networks:
+      - status_net
+      - buyer_net
+      - seller_net
+
+networks:
+  buyer_net:
+  seller_net:
+  status_net:
+
+volumes:
+  DockerItemBackup:

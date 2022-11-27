@@ -1,0 +1,20 @@
+{
+        auto_https disable_redirects
+}
+
+http://seller.localhost {
+        basicauth {
+                seller $2a$14$6H4mTmiPYxFUjcQCt5acNurb59hEkS9/TBU1q2NL6ttTujzrR0cNK
+        }
+        reverse_proxy seller:80
+}
+
+http://buyer.localhost {
+        basicauth {
+                buyer $2a$14$3OmFQjtd0EQZFW43X/SobeWktDMQiTIzLSFmhNsqgXMrNN1Gb.1my
+        }
+        reverse_proxy buyer:80
+}
+http://status.localhost { 
+        reverse_proxy status:80
+}

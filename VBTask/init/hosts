@@ -1,0 +1,12 @@
+[servers]
+backup
+db
+status
+vhost2
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=root
+ansible_password=123456
+ansible_port=22
+ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
